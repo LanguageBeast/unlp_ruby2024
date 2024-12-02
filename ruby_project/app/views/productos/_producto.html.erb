@@ -1,0 +1,39 @@
+<div class="row" id="<%= dom_id producto %>"> <!-- necesario para rails el id -->
+<div class="container prod-container mb-1 special-border">
+  <div class="row">
+    <div class="col">
+      <p>
+        <strong>Name:</strong>
+        <%= producto.name %>
+      </p>
+      <p>
+        <strong>Description:</strong>
+        <%= producto.description %>
+      </p>
+      <p>
+        <strong>Unit price:</strong>
+        <%= producto.unit_price %>
+      </p>
+      <p>
+        <strong>Stock:</strong>
+        <%= producto.available_stock %>
+      </p>
+      <p>
+        <%= link_to "See details", producto, class: "btn btn-secondary w-25 h-25", style: "" %>
+      </p>
+    </div>
+    <div class="col">
+      <% if producto.images.attached? %>
+          <div class="img-row">
+          <% producto.images.each do |image| %>
+            <div class="img-col product-<%= producto.id %>">
+              <%= image_tag image, class: "w-100"%>  
+            </div>
+          <% end %>
+          </div>
+        <% end %>
+    </div>
+    </div>
+  </div>
+</div>
+

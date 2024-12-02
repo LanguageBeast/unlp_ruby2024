@@ -1,0 +1,50 @@
+<%= form_with(model: sale) do |form| %>
+  <% if sale.errors.any? %>
+    <div style="color: red">
+      <ul>
+        <% sale.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :client_id, class: "form-control-label" %>
+    <%= form.text_field :client_id, class: "form-control" %>
+  </div>
+
+  <h2>Products</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Unit Price</th>
+        <th>Stock Available</th>
+        <th>Amount Sold</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.id %></td>
+          <td><%= product.name %></td>
+          <td><%= truncate(product.description, length: 50) %></td>
+          <td><%= product.unit_price %></td>
+          <td><%= product.available_stock %></td>
+          <td>
+            <%= number_field_tag "product-#{product.id}", nil, min: 0, max: product.available_stock, disabled: product.available_stock.zero? %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <%= form.submit "Create Sale", class: "btn btn-primary mb-4" %>
+    <%= link_to "Back to sales", sales_path, class: "btn btn-secondary mb-4" %>
+  </div>
+<% end %>
+

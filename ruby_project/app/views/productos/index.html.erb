@@ -1,0 +1,25 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Products" %>
+
+<div class="row justify-content-between">
+    <div class="h1-div col pt-4 pb-4 bg-body-tertiary text-center">
+      <h1 class="display-2 text-muted text-center">Products</h1>
+      <p>Here, you can <span class="text-primary">create</span>, <span class="text-primary">read</span>, <span class="text-primary">update</span>, and <span class="text-primary">delete</span> products from the catalogue.</p>
+      <p>
+        You are logged in as: <b>{{ get_role(session).name }}</b>
+      </p>
+    </div>
+</div>
+<div class="row justify-content-center">
+  <%= link_to "New product", new_producto_path, class: "btn btn-primary w-25 h-25" %>
+</div>
+</br>
+<p>Here will go the ransack gem search_form</p>
+<div id="products" class="">
+  <% @productos.each do |product| %>
+
+      <%= render product %>
+  <% end %>
+</div>
+

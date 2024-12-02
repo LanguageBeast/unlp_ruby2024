@@ -1,0 +1,32 @@
+<div class="row" id="<%= dom_id sale %>">
+  <div class="container prod-container mb-1">
+    <div class="row">
+      <div class="col">
+        <h1 class="lead text-center">Sale <%= sale.id %> Details</h1>
+        <p class="lead mb-0">Sold to Client: <%= sale.client_id %></p>
+        <h2 class="lead">List of products sold:</h2>
+        <% sale.sale_products.each do |sale_product| %>
+          <div class="product">
+            <h4 class="font-weight-bold"><%= sale_product.product.name %></h3>
+            <p class="lead m-0">Description: <%= sale_product.product.description %></p>
+            <p class="lead m-0">Amount sold: <span class="font-weight-bold"><%= sale_product.amount %></span></p>
+            <p class="lead m-0">Total for this product: <%= number_to_currency(sale_product.total_amount) %></p>
+          </div>
+        <% end %>
+
+        <h2>Total for this sale: <%= number_to_currency(sale.total_amount) %></h2>
+      </div>
+      <div class="col">
+        <% sale.sale_products.each do |sale_product| %>
+          <div class="img-row">
+            <% sale_product.product.images.each do |image| %>
+                <div class="img-col product-<%= sale_product.product.id %>">
+                  <%= image_tag image, class: "w-100"%>  
+                </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
