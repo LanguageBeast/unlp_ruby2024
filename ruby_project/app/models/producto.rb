@@ -42,4 +42,12 @@ class Producto < ApplicationRecord
       errors.add(:images, "must have at least one image")
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["available_stock", "category", "color", "created_at", "deactivation_date", "description", "entry_date", "id", "last_modification_date", "name", "size", "unit_price", "updated_at"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["images_attachments", "images_blobs", "sale_products", "sales"]
+  end
 end

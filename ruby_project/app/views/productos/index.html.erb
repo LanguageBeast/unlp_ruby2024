@@ -15,7 +15,17 @@
   <%= link_to "New product", new_producto_path, class: "btn btn-primary w-25 h-25" %>
 </div>
 </br>
-<p>Here will go the ransack gem search_form</p>
+<%= search_form_for @q, url: productos_path, method: :get, class: '' do |f| %>
+  <div class="flex">
+    <div class="row">
+      <%= f.label :name_or_description_cont, "Search any sportswear:", class: 'lead' %>
+    </div>
+    <div class="row">
+      <%= f.search_field :name_or_description_cont, placeholder: 'Search...', class: 'form-control m-2 w-50 h-100' %>
+      <%= f.submit "Search", class: 'btn btn-outline-primary m-2 mb-4 w-25' %>
+    </div>
+  </div>
+<% end %>
 <div id="products" class="">
   <% @productos.each do |product| %>
 
