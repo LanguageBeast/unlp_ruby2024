@@ -1,10 +1,27 @@
 class ProductosController < ApplicationController
   before_action :set_producto, only: %i[show edit update destroy]
 
+  CATEGORIES = [
+    "Activewear", "Athletic Shoes", "Compression Wear", "Sports Bras", "Training Gear",
+    "Outerwear", "Yoga Apparel", "Swimwear", "Running Gear", "Sports Accessories",
+    "Team Apparel", "Protective Gear", "Winter Sports Gear", "Performance Wear", "Golf Apparel",
+  ].freeze
+
+  SEARCH_CATEGORIES = ["All",
+                       "Activewear", "Athletic Shoes", "Compression Wear", "Sports Bras", "Training Gear",
+                       "Outerwear", "Yoga Apparel", "Swimwear", "Running Gear", "Sports Accessories",
+                       "Team Apparel", "Protective Gear", "Winter Sports Gear", "Performance Wear", "Golf Apparel"].freeze
+
   # GET /productos or /productos.json
   def index
+    order_by = params[:order_by] || "name"
+    order_direction = params[:order_direction] || "asc"
+    if params.dig(:q, :category_eq) == "All"
+      params[:q].delete(:category_eq)
+    end
     @q = Producto.ransack(params[:q])
-    @productos = @q.result(distinct: true)
+    @productos = @q.result(distinct: true).order("#{order_by} #{order_direction}")
+    @categories = SEARCH_CATEGORIES
   end
 
   # GET /productos/1 or /productos/1.json
@@ -14,6 +31,7 @@ class ProductosController < ApplicationController
   # GET /productos/new
   def new
     @producto = Producto.new
+    @categories = CATEGORIES
   end
 
   # GET /productos/1/edit
@@ -23,6 +41,7 @@ class ProductosController < ApplicationController
   # POST /productos or /productos.json
   def create
     @producto = Producto.new(producto_params)
+    @categories = CATEGORIES
 
     respond_to do |format|
       if @producto.save
