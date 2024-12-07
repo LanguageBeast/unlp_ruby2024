@@ -1,5 +1,5 @@
 <div class="row" id="<%= dom_id producto %>"> <!-- necesario para rails el id -->
-<div class="container prod-container mb-1 special-border">
+<div class="container prod-container mb-1 ">
   <div class="row">
     <div class="col">
       <p>
@@ -17,9 +17,6 @@
       <p>
         <strong>Stock:</strong>
         <%= producto.available_stock %>
-      </p>
-      <p>
-        <%= link_to "See details", producto, class: "btn btn-secondary w-25 h-25", style: "" %>
       </p>
     </div>
     <div class="col">

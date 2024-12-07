@@ -1,0 +1,70 @@
+<%= form_with model: @producto, local: true, html: { multipart: true } do |form| %>
+  <% if producto.errors.any? %>
+    <div style="color: red">
+      <ul>
+        <% @producto.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group mb-3">
+    <%= form.label :name, class: "form-control-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :description, class: "form-control-label" %>
+    <%= form.textarea :description, class: "form-control" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :unit_price, class: "form-control-label" %>
+    <%= form.number_field :unit_price, step: 1, min: 1, class: "form-control", value: @producto.unit_price.to_i %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :available_stock, class: "form-control-label" %>
+    <%= form.text_field :available_stock, class: "form-control" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :images, "Upload Images", class: "form-control-label" %>
+    <%= form.file_field :images, multiple: true, name: "producto[images][]", class: "form-control" %>
+      <% if producto.images.attached? %>
+          <div class="img-row">
+          <% producto.images.each do |image| %>
+            <div class="img-col product-<%= producto.id %>">
+              <%= image_tag image, class: "w-100"%>  
+            </div>
+          <% end %>
+          </div>
+        <% end %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :category, class: 'w-100' %>
+    <%= form.select :category, options_for_select(@categories), class: "" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :size, class: "form-control-label" %>
+    <%= form.text_field :size, class: "form-control" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :color, class: "form-control-label" %>
+    <%= form.text_field :color, class: "form-control" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :entry_date, class: "form-control-label" %>
+    <%= form.date_field :entry_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.submit "Edit this Product", class: "btn btn-primary" %>
+      <%= link_to "Back to productos", productos_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

@@ -15,10 +15,9 @@ class Producto < ApplicationRecord
   validate :validate_entry_date
   validate :must_have_at_least_one_image, on: :create
 
-  def eliminar
-    self.stock_disponible = 0
-    self.fecha_baja = Date.today
-    save
+  def delete_logically!
+    update_attribute(:deactivation_date, Date.today)
+    update_attribute(:available_stock, 0)
   end
 
   private
