@@ -27,15 +27,15 @@
     </thead>
     <tbody>
     <% @users.each do |user| %>
-          <tr>
+        <tr class="<%= 'deactivated' if user.deleted %>">
           <td><%= user.id %></td>
           <td><%= user.email %></td>
           <td><%= user.username %></td>
           <td><%= user.role %></td>
           <td><%= user.entry_date %></td>
-        <td class="w-20">
-          <%= link_to "See details", user, class: "btn btn-secondary w-100 h-25", style: "" %>
-        </td>
+          <td class="w-20">
+            <%= link_to "See details", user, class: "btn btn-secondary w-100 h-25", style: "" %>
+          </td>
         </tr>
     <% end %>
     </tbody>

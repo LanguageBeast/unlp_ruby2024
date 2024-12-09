@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-  before_action :check_admin_accounts_accesss, only: %i[ update destroy show ]
-  before_action :check_other_accounts_accesss, only: %i[ update destroy ]
-  before_action :check_role_for_show, only: %i[ show ]
+  before_action :check_accounts_show, only: %i[ show ]
+  before_action :check_accounts_update, only: %i[ destroy ]
+  before_action :check_accounts_destroy, only: %i[ destroy ]
 
   # GET /users or /users.json
   def index
@@ -53,10 +53,11 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy!
+    user = User.find(params[:id])
+    user.deactivate
 
     respond_to do |format|
-      format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
+      format.html { redirect_to users_path, status: :see_other, notice: "This user was successfully deactivated." }
       format.json { head :no_content }
     end
   end
@@ -73,22 +74,31 @@ class UsersController < ApplicationController
     params.expect(user: [:username, :email, :phone, :password, :role, :entry_date])
   end
 
-  def check_admin_accounts_accesss
+  def check_accounts_destroy
+    user = User.find(params[:id])
+    if !current_user.admin?
+      redirect_to users_path, notice: "You are not authorized to deactivate an account."
+    end
+    if current_user.id == user.id
+      redirect_to users_path, notice: "You cannot deactivate your own account."
+    end
+  end
+
+  def check_accounts_update
+    user = User.find(params[:id])
+    if current_user.manager? and user.admin?
+      redirect_to users_path, notice: "You are not authorized to update an admin account."
+    end
+    if !current_user.admin? and !current_user.manager?
+      redirect_to users_path, notice: "You are not authorized to update an account."
+    end
+  end
+
+  def check_accounts_show
     user = User.find(params[:id])
     if user.admin? and !current_user.admin?
       redirect_to users_path, notice: "You are not authorized to access nor perform actions on an admin account."
     end
-  end
-
-  def check_other_accounts_accesss
-    user = User.find(params[:id])
-    if !user.admin? and (!current_user.manager? || !current_user.admin?)
-      redirect_to users_path, notice: "You are not authorized to perform actions on other accounts."
-    end
-  end
-
-  def check_role_for_show
-    puts current_user.manager?, current_user.admin?
     if !current_user.manager? and !current_user.admin?
       redirect_to users_path, notice: "You are not authorized to view other accounts."
     end
