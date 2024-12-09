@@ -1,13 +1,9 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Sales" %>
 <div class="row justify-content-between">
     <div class="h1-div col pt-4 pb-4 bg-body-tertiary text-center">
       <h1 class="display-2 text-muted text-center">Sales</h1>
       <p>Here, you can <span class="text-primary">create</span>, <span class="text-primary">read</span> or <span class="text-primary">cancel</span> sales from the database.</p>
-      <p>
-        You are logged in as: <b>{{ get_role(session).name }}</b>
-      </p>
+      <%= render 'layouts/current_session' %>
     </div>
 </div>
 <div class="row justify-content-center">

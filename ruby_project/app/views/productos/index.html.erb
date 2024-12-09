@@ -1,19 +1,21 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Products" %>
 
 <div class="row justify-content-between">
     <div class="h1-div col pt-4 pb-4 bg-body-tertiary text-center">
       <h1 class="display-2 text-muted text-center">Products</h1>
-      <p>Here, you can <span class="text-primary">create</span>, <span class="text-primary">read</span>, <span class="text-primary">update</span>, and <span class="text-primary">delete</span> products from the catalogue.</p>
-      <p>
-        You are logged in as: <b>{{ get_role(session).name }}</b>
-      </p>
+      <% if user_signed_in? %>
+        <p>Here, you can <span class="text-primary">create</span>, <span class="text-primary">read</span>, <span class="text-primary">update</span>, and <span class="text-primary">delete</span> products from the catalogue.</p>
+      <% else %>
+        <p>Here, you can <span class="text-primary">read</span> the products from the catalogue.</p>
+      <% end %>
+      <%= render 'layouts/current_session' %>
     </div>
 </div>
-<div class="row justify-content-center">
-  <%= link_to "New product", new_producto_path, class: "btn btn-primary w-25 h-25" %>
-</div>
+<% if user_signed_in? %>
+  <div class="row justify-content-center">
+    <%= link_to "New product", new_producto_path, class: "btn btn-primary w-25 h-25" %>
+  </div>
+<% end %>
 </br>
 <%= search_form_for @q, url: productos_path, method: :get, class: '' do |f| %>
   <div class="flex">

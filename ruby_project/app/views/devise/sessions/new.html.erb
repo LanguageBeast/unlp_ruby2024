@@ -1,25 +1,30 @@
-<h2>Log in</h2>
+<div class="row justify-content-between">
+    <div class="h1-div col pt-4 pb-4 bg-body-tertiary text-center">
+      <h1 class="display-2 text-muted text-center">Log in</h1>
+      <p>Log in to your Sportswear account to manage products, sales and more.</p>
+    </div>
+</div>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
+  <div class="form-group mb-3">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <div class="field">
+  <div class="form-group mb-3">
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="field">
+    <div class="form-group mb-3">
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+  <div class="form-group mb-3">
+    <%= f.submit "Access", class: 'btn btn-primary' %>
   </div>
 <% end %>
 

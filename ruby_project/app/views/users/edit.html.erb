@@ -1,12 +1,11 @@
 <% content_for :title, "Editing user" %>
 
-<h1>Editing user</h1>
-
-<%= render "form", user: @user %>
-
-<br>
-
-<div>
-  <%= link_to "Show this user", @user %> |
-  <%= link_to "Back to users", users_path %>
+<div class="row justify-content-center">
+  <div id="secondary-div-title" class="col my-4 pt-4 pb-4 bg-body-tertiary text-center">
+      <h1 class="display-4 text-muted text-center">Editing an User</h1>
+  </div>
 </div>
+<div>
+
+<%= render "edit_form", user: @user %>
+

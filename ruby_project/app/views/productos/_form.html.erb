@@ -36,7 +36,7 @@
 
   <div class="form-group mb-3">
     <%= form.label :category, class: 'w-100' %>
-    <%= form.select :category, options_for_select(@categories), class: "" %>
+    <%= form.select :category, options_for_select(@categories), {}, {class: "form-select"} %>
   </div>
 
   <div class="form-group mb-3">
@@ -56,6 +56,6 @@
 
   <div class="form-group mb-3">
     <%= form.submit "Create Product", class: "btn btn-primary" %>
-      <%= link_to "Back to productos", productos_path, class: "btn btn-secondary" %>
+      <%= link_to "Back to products", productos_path, class: "btn btn-secondary" %>
   </div>
 <% end %>

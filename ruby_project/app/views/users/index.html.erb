@@ -1,16 +1,43 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Users" %>
 
-<h1>Users</h1>
-
-<div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
-  <% end %>
+<div class="row justify-content-between">
+    <div class="h1-div col pt-4 pb-4 bg-body-tertiary text-center">
+      <h1 class="display-2 text-muted text-center">Users</h1>
+      <p>Here, you can <span class="text-primary">create</span>, <span class="text-primary">read</span>, <span class="text-primary">update</span>, and <span class="text-primary">delete</span> Users from the database.</p>
+      <%= render 'layouts/current_session' %>
+    </div>
 </div>
-
-<%= link_to "New user", new_user_path %>
+<% if current_user&.admin? || current_user&.manager? %>
+  <div class="row justify-content-center">
+    <%= link_to "New User", new_user_path, class: "btn btn-primary w-25 h-25" %>
+  </div>
+<% end %>
+</br>
+<div id="products" class="">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Entry Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+          <tr>
+          <td><%= user.id %></td>
+          <td><%= user.email %></td>
+          <td><%= user.username %></td>
+          <td><%= user.role %></td>
+          <td><%= user.entry_date %></td>
+        <td class="w-20">
+          <%= link_to "See details", user, class: "btn btn-secondary w-100 h-25", style: "" %>
+        </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :productos
   resources :sales, except: [:edit, :update]
 
-  match "/users/*", to: "application#not_found", via: :all
+  #match "/users/*", to: "application#not_found", via: :all
 
   # get "up" => "rails/health#show", as: :rails_health_check
 

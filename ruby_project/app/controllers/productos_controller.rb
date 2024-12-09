@@ -1,5 +1,6 @@
 class ProductosController < ApplicationController
   before_action :set_producto, only: %i[show edit update destroy]
+  before_action :authenticate_user!, except: %i[index show]
 
   CATEGORIES = [
     "Activewear", "Athletic Shoes", "Compression Wear", "Sports Bras", "Training Gear",

@@ -30,8 +30,12 @@
       <%= render "layouts/navbar" %>
     </header>
     <div class="container p5 mt-5">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if notice %>
+        <p class="alert alert-primary mt-4"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger mt-4"><%= alert %></p>
+      <% end %>
       <%= yield %>
     </div>
   </body>
