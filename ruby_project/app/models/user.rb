@@ -24,4 +24,8 @@ class User < ApplicationRecord
     random_password = SecureRandom.hex(32)
     update(deleted: true, password: random_password)
   end
+
+  def activate
+    update(deleted: false, password: 123456)
+  end
 end

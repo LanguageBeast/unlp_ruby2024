@@ -54,10 +54,17 @@ class UsersController < ApplicationController
   # DELETE /users/1 or /users/1.json
   def destroy
     user = User.find(params[:id])
-    user.deactivate
+    puts user.deleted
+    if !user.deleted
+      user.deactivate
+      message = "This user has been successfully deactivated."
+    else
+      user.activate
+      message = "This user has been successfully activated."
+    end
 
     respond_to do |format|
-      format.html { redirect_to users_path, status: :see_other, notice: "This user was successfully deactivated." }
+      format.html { redirect_to users_path, status: :see_other, notice: message }
       format.json { head :no_content }
     end
   end

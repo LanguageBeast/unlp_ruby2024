@@ -19,7 +19,8 @@
           <li class="nav-item">
             <%= link_to 'See users', users_path, class:"nav-link lead" %>
           </li>
-          <li class="nav-item ms-auto">
+          <li class="nav-item ms-auto d-flex">
+            <p class="lead my-0 align-self-center mr-2">Hello, <%= current_user.username%>! </p>
            <%= button_to 'Log out', destroy_user_session_path, method: :delete, form: { data: { turbo: true, turbo_confirm: 'Are you sure you want to log out?' } }, class: 'btn btn-primary mt-1' %>
           </li>
         <% else %>
