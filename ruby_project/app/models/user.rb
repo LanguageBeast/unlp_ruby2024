@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  attr_accessor :is_updating
+
   devise :database_authenticatable, #:registerable,
          #:recoverable,
          :rememberable, :validatable
@@ -27,5 +29,13 @@ class User < ApplicationRecord
 
   def activate
     update(deleted: false, password: 123456)
+  end
+
+  def password_required?
+    if is_updating
+      false
+    else
+      true
+    end
   end
 end
