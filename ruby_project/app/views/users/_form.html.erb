@@ -1,0 +1,50 @@
+<%= form_with(model: user) do |form| %>
+  <% if user.errors.any? %>
+    <div style="color: red">
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group mb-3">
+    <%= form.label :username, style: "display: block" %>
+    <%= form.text_field :username, class: 'form-control' %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :phone, style: "display: block" %>
+    <%= form.text_field :phone,  class: 'form-control' %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :password, style: "display: block" %>
+    <%= form.text_field :password,  class: 'form-control' %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :role, style: "display: block" %>
+    <% if current_user.admin? %>
+      <%= form.select :role, options_for_select([['Employee', 'employee'], ['Manager', 'manager'], ['Administrator', 'admin']]), {}, {class: "form-select"} %>
+    <% else %>
+        <%= form.select :role, options_for_select([['Employee', 'employee'], ['Manager', 'manager']]), {}, {class: "form-select"} %>
+    <% end %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :entry_date, style: "display: block" %>
+    <%= form.date_field :entry_date,  class: 'form-control' %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.submit "Create User", class: 'btn btn-primary' %>
+    <%= link_to "Back to users", users_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

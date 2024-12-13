@@ -1,5 +1,6 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /sales or /sales.json
   def index
@@ -23,14 +24,6 @@ class SalesController < ApplicationController
 
   # POST /sales or /sales.json
   def create
-
-    # Innecesary due to model validation
-
-    # if chosen_products.empty?
-    #   # @sale.errors.add(:base, "At least one product must be sold")
-    #   raise ActiveRecord::Rollback
-    # end
-
     @sale = Sale.new(sale_params)
     @sale.products_chosen = extract_product_params
     @sale.products_db = Producto.where(id: @sale.products_chosen.keys).pluck(:id, :available_stock).to_h

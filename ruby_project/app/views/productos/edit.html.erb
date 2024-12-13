@@ -1,12 +1,10 @@
 <% content_for :title, "Editing producto" %>
-
-<h1>Editing producto</h1>
-
-<%= render "form", producto: @producto %>
-
-<br>
-
-<div>
-  <%= link_to "Show this product", @producto %> |
-  <%= link_to "Back to products", productos_path %>
+<div class="row justify-content-center">
+  <div id="secondary-div-title" class="col my-4 pt-4 pb-4 bg-body-tertiary text-center">
+      <h1 class="display-4 text-muted text-center">Editing a product</h1>
+      <%= render 'layouts/current_session' %>
+  </div>
 </div>
+<div>
+
+<%= render "edit_form", producto: @producto %>

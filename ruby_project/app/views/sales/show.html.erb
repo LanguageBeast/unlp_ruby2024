@@ -1,9 +1,9 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @sale %>
 
-<div>
-  <%= link_to "Back to sales", sales_path %>
+<div class="d-flex mb-4">
+  <%= link_to sales_path, class: 'btn btn-secondary m-2' do %>
+    <button type="button" class="btn btn-secondary p-0">Back to sales</button>
+  <% end %>
 
-  <%= button_to "Cancel this sale", @sale, method: :delete %>
+  <%= button_to 'Cancel sale', sales_path(@sale), method: :delete, form: { data: { turbo: true, turbo_confirm: 'Are you sure you want to cancel this sale?' } }, class: 'btn btn-danger m-2' %>
 </div>

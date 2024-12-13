@@ -12,13 +12,15 @@ class Producto < ApplicationRecord
   validates :available_stock, presence: { message: "is required" }, numericality: { only_integer: true }
   validates :category, presence: { message: "is required" }
   validates :entry_date, presence: { message: "is required" }
+  validates :color, format: { with: /\A[a-zA-Z\s]+\z/, message: "only allows letters and spaces" }, allow_blank: true
+  validates :size, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
+
   validate :validate_entry_date
   validate :must_have_at_least_one_image, on: :create
 
-  def eliminar
-    self.stock_disponible = 0
-    self.fecha_baja = Date.today
-    save
+  def delete_logically!
+    update_attribute(:deactivation_date, Date.today)
+    update_attribute(:available_stock, 0)
   end
 
   private
@@ -41,5 +43,13 @@ class Producto < ApplicationRecord
     if images.blank?
       errors.add(:images, "must have at least one image")
     end
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["available_stock", "category", "color", "created_at", "deactivation_date", "description", "entry_date", "id", "last_modification_date", "name", "size", "unit_price", "updated_at"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["images_attachments", "images_blobs", "sale_products", "sales"]
   end
 end
