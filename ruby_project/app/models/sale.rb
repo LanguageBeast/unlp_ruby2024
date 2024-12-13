@@ -26,8 +26,10 @@ class Sale < ApplicationRecord
   def restock_products
     sale_products.each do |sale_product|
       product = sale_product.product
-      product.available_stock += sale_product.amount
-      product.save!(validate: false)
+      if product.deactivation_date != nil
+        product.available_stock += sale_product.amount
+        product.save!(validate: false)
+      end
     end
   end
 

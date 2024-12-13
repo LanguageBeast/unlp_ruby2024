@@ -42,13 +42,10 @@
     </div>
   </div>
 <% end %>
-<div id="products" class="">
+<div id="products" >
   <% @productos.each do |producto| %>
 
       <%= render producto %>
-      <p>
-        <%= link_to "See details", producto, class: "btn btn-secondary w-25 h-25", style: "" %>
-      </p>
   <% end %>
 </div>
 
