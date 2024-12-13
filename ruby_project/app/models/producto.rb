@@ -12,6 +12,9 @@ class Producto < ApplicationRecord
   validates :available_stock, presence: { message: "is required" }, numericality: { only_integer: true }
   validates :category, presence: { message: "is required" }
   validates :entry_date, presence: { message: "is required" }
+  validates :color, format: { with: /\A[a-zA-Z\s]+\z/, message: "only allows letters and spaces" }, allow_blank: true
+  validates :size, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
+
   validate :validate_entry_date
   validate :must_have_at_least_one_image, on: :create
 
